@@ -442,6 +442,11 @@ class TodoApp(QMainWindow):
                 self.load_tasks()
                 self.update_statistics()
                 self.status_label.setText(f"Задача '{task_title}' выполнена")
+        else:
+            if self.db.complete_task(task_id, status='Активна'):
+                self.load_tasks()
+                self.update_statistics()
+                self.status_label.setText(f"Задача '{task_title}' не выполнена")
     
     def delete_task(self):
         """Удаление задачи"""

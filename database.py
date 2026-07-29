@@ -59,14 +59,14 @@ class Database:
             ''', (status_filter,))
         return self.cursor.fetchall()
     
-    def complete_task(self, task_id):
+    def complete_task(self, task_id, status='Выполнена'):
         """Отметить задачу как выполненную"""
         completed_date = datetime.now().strftime("%Y-%m-%d %H:%M")
         self.cursor.execute('''
             UPDATE tasks 
-            SET status = 'Выполнена', completed_date = ? 
+            SET status = ?, completed_date = ? 
             WHERE id = ?
-        ''', (completed_date, task_id))
+        ''', (status, completed_date, task_id))
         self.conn.commit()
         return self.cursor.rowcount > 0
     
